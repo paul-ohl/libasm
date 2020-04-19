@@ -18,8 +18,8 @@ count:
 compare_chars:
 		cmp		al, byte [rsi]	; checking if difference btw rdi and rsi
 		je		ret_0
-		jg		ret_1
-		jl		ret_minus_1
+		ja		ret_1
+		jb		ret_minus_1
 
 ret_0:
 		mov	rax, 0				; return 0 if equal
