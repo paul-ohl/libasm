@@ -2,6 +2,7 @@
 ; Problem: how to detect wrong fd
 
 		global	_ft_write
+		extern ___error
 		section	.text
 
 _ft_write:
@@ -14,6 +15,9 @@ _ft_write:
 		ret
 
 error:
+		mov		r9, rax
+		call	___error
+		mov		byte [rax], r9b
 		pop		rax
 		sub		rax, rax
 		dec		rax				; set rax to -1

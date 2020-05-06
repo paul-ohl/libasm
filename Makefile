@@ -3,6 +3,9 @@ NAME		= libasm.a
 SRCSDIR		= srcs
 OBJSDIR		= objs
 TESTER		= useless.c
+TESTFILE	= test
+SRCS		= ft_atoi_base.s ft_read.s ft_strcmp.s ft_strcpy.s \
+				ft_strdup.s ft_strlen.s ft_write.s
 
 # Compiler options
 ASMC		= nasm
@@ -10,20 +13,19 @@ LINKER		= ar rc
 CC			= gcc
 ASMFLAGS	= -fmacho64
 LDFLAGS		=
-CFLAGS		= -Wall -Wextra -g3
+CFLAGS		= -Wall -Wextra -g3 
 
 ###################################################
 # The rest is done by the MakeFile automatically, #
 # you should not have to modify it				  #
 ###################################################
 
-SRCS	= $(subst ./srcs/,,$(wildcard ./srcs/*.s))
 OBJS	= $(SRCS:%.s=$(OBJSDIR)/%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(LINKER) $@ $^
+	@$(LINKER) $(LDFLAGS) $@ $^
 	@echo "Build successful!"
 
 $(OBJS): $(OBJSDIR)/%.o: $(SRCSDIR)/%.s
@@ -42,8 +44,8 @@ re: fclean all
 
 test: $(NAME)
 	@echo "Compiling $(TESTER)"
-	@$(CC) $(CFLAGS) -o test $(TESTER) $<
+	@$(CC) $(CFLAGS) -o $(TESTFILE) $(TESTER) $<
 	@echo "Running tests:"
-	@./test
+	@./$(TESTFILE)
 
 .PHONY: all clean fclean re test
