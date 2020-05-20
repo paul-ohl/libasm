@@ -21,13 +21,38 @@
 int		main()
 {
 		printf("strlen tests:\n");
-		printf("Original: %d %d %d\n", strlen("Hello World!"), strlen(""), strlen("Weird Characters \200 	\t\n"));
-		printf("Mine    : %d %d %d\n", ft_strlen("Hello World!"), ft_strlen(""), ft_strlen("Weird Characters \200 	\t\n"));
+		printf("Original: %ld %ld %ld\n", strlen("Hello World!"), strlen(""), strlen("Weird Characters \200 	\t\n"));
+		printf("Mine    : %ld %ld %ld\n", ft_strlen("Hello World!"), ft_strlen(""), ft_strlen("Weird Characters \200 	\t\n"));
 
-		printf("strcmp tests:\n");
-		printf("Original: %d %d %d %d\n", strcmp("Hello World!", "Hello World!"), strcmp("Hello World!", "Hello"), strcmp("Hello", "Hello World!"), strcmp("Hello World!", NULL));
-		printf("Mine    : %d %d %d %d\n", ft_strcmp("Hello World!", "Hello World!"), ft_strcmp("Hello World!", "Hello"), ft_strcmp("Hello", "Hello World!"), ft_strcmp("Hello World!", NULL));
+		printf("\nstrcmp tests:\n");
+		printf("Original: %d", strcmp("Hello World!", "Hello World!"));
+		printf(" %d", strcmp("Hello World!", "Hello"));
+		printf(" %d", strcmp("Hello", "Hello World!"));
+		//printf(" %d", strcmp("Hello World!", NULL));		// Segfaults
+		printf("\n");
 
-		printf("ft_strcpy tests:\n");
+		printf("Mine    : %d", ft_strcmp("Hello World!", "Hello World!"));
+		printf(" %d", ft_strcmp("Hello World!", "Hello"));
+		printf(" %d", ft_strcmp("Hello", "Hello World!"));
+		//printf(" %d", ft_strcmp("Hello World!", NULL));		// Segfaults
+		printf("\n");
+
+		printf("\nstrcpy tests:\n");
+		char good[20];
+		char too_short[2];
+		char empty[4];
+		printf("Original: %s", strcpy(good, "Hello World!"));
+		//printf(" %s", strcpy(too_short, "Hello World!"));		// Segfaults
+		//printf(" %s", strcpy(empty, NULL));		// Segfaults
+		printf("\n");
+
+		char ft_good[20];
+		char ft_too_short[2];
+		char ft_empty[4];
+		printf("Mine    : %s", ft_strcpy(ft_good, "Hello World!"));
+		//printf(" %s", ft_strcpy(ft_too_short, "Hello World!"));		// Segfaults
+		//printf(" %s", ft_strcpy(ft_empty, NULL));		// Segfaults
+		printf("\n");
+
 
 }
