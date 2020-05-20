@@ -20,20 +20,14 @@
 
 int		main()
 {
-	printf("strcmp:\t\t");
-	printf("%d %d %d %d\n", strcmp("bonjour", "bonjou"), strcmp("bonjou", "bonjour"), strcmp("\200", "\0"), strcmp("\0", "\200"));
-	printf("ft_strcmp:\t");
-	printf("%d %d %d %d\n", ft_strcmp("bonjour", "bonjou"), ft_strcmp("bonjou", "bonjour"), ft_strcmp("\200", "\0"), ft_strcmp("\0", "\200"));
-	char *pouet = ft_strdup("bonjour!!! Je suis pouet");
-	printf("\nstrdup: %s\n\n", pouet);
-	errno = 0;
-	printf("read:\t");
-	char *string = NULL;
-	ft_read(30000, string, 30);
-	printf("%d\n", errno);
-	errno = 0;
-	printf("read:\t");
-	ft_write(30000, "string", 3);
-	printf("%d\n", errno);
-	return 0;
+		printf("strlen tests:\n");
+		printf("Original: %d %d %d\n", strlen("Hello World!"), strlen(""), strlen("Weird Characters \200 	\t\n"));
+		printf("Mine    : %d %d %d\n", ft_strlen("Hello World!"), ft_strlen(""), ft_strlen("Weird Characters \200 	\t\n"));
+
+		printf("strcmp tests:\n");
+		printf("Original: %d %d %d %d\n", strcmp("Hello World!", "Hello World!"), strcmp("Hello World!", "Hello"), strcmp("Hello", "Hello World!"), strcmp("Hello World!", NULL));
+		printf("Mine    : %d %d %d %d\n", ft_strcmp("Hello World!", "Hello World!"), ft_strcmp("Hello World!", "Hello"), ft_strcmp("Hello", "Hello World!"), ft_strcmp("Hello World!", NULL));
+
+		printf("ft_strcpy tests:\n");
+
 }
