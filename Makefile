@@ -1,5 +1,6 @@
 # Folders and Names
 NAME		= libasm.a
+INCLUDES	= .
 SRCSDIR		= srcs
 OBJSDIR		= objs
 TESTER		= useless.c
@@ -44,7 +45,7 @@ re: fclean all
 
 test: $(NAME)
 	@echo "Compiling $(TESTER)"
-	@$(CC) $(CFLAGS) -o $(TESTFILE) $(TESTER) $<
+	@$(CC) $(CFLAGS) -o $(TESTFILE) -I$(INCLUDES) $(TESTER) $<
 	@echo "Running tests:"
 	@./$(TESTFILE)
 
