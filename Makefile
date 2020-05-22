@@ -36,7 +36,7 @@ $(OBJS): $(OBJSDIR)/%.o: $(SRCSDIR)/%.s
 
 clean:
 	rm -rf $(OBJSDIR)
-	rm -rf test test.dSYM
+	rm -rf test test.dSYM test.txt
 
 fclean: clean
 	rm -rf $(NAME)
