@@ -25,16 +25,30 @@ int		main()
 		printf("Original: %ld %ld %ld\n", strlen("Hello World!"), strlen(""), strlen("Weird Characters \200 	\t\n"));
 		printf("Mine    : %ld %ld %ld\n", ft_strlen("Hello World!"), ft_strlen(""), ft_strlen("Weird Characters \200 	\t\n"));
 
+		char *hi;
+		char *hello;
 		printf("\nstrcmp tests:\n");
 		printf("Original: %d", strcmp("Hello World!", "Hello World!"));
 		printf(" %d", strcmp("Hello World!", "Hello"));
 		printf(" %d", strcmp("Hello", "Hello World!"));
+		hi = strdup("Hello there!");
+		hello = strdup("Hello there!");
+		printf(" %d", strcmp(hi, hello));
+		free(hi);
+		hi = strdup("General Kenobi!");
+		printf(" %d", strcmp(hi, hello));
 		//printf(" %d", strcmp("Hello World!", NULL));		// Segfaults
 		printf("\n");
 
 		printf("Mine    : %d", ft_strcmp("Hello World!", "Hello World!"));
 		printf(" %d", ft_strcmp("Hello World!", "Hello"));
 		printf(" %d", ft_strcmp("Hello", "Hello World!"));
+		hi = strdup("Hello there!");
+		hello = strdup("Hello there!");
+		printf(" %d", ft_strcmp(hi, hello));
+		free(hi);
+		hi = strdup("General Kenobi!");
+		printf(" %d", ft_strcmp(hi, hello));
 		//printf(" %d", ft_strcmp("Hello World!", NULL));		// Segfaults
 		printf("\n");
 
