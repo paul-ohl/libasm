@@ -7,28 +7,16 @@ _ft_strcmp:
 count:
 		mov		al, byte [rdi]
 		cmp		al, 0			; checking if reached end of str1
-		je		compare_chars
+		je		return
 		cmp		al, byte [rsi]	; checking if difference btw rdi and rsi
-		jne		compare_chars
+		jne		return
 
 		inc		rsi				; else go to next character in the string
 		inc		rdi				; go to next character in the string
 		jmp		count			; loop
 
-compare_chars:
-		cmp		al, byte [rsi]	; checking if difference btw rdi and rsi
-		je		ret_0
-		ja		ret_1
-		jb		ret_minus_1
-
-ret_0:
-		mov	rax, 0				; return 0 if equal
-		ret
-
-ret_1:
-		mov	rax, 1				; return 1 if str1 > str2
-		ret
-
-ret_minus_1:
-		mov	rax, -1				; return -1 if str1 < str2
+return:
+		movsx	rax, byte [rdi]	; moves byte of rdi in rax and completes with the sign
+		movsx	rdx, byte [rsi]
+		sub		rax, rdx
 		ret

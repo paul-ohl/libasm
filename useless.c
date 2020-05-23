@@ -18,6 +18,11 @@
 #include <fcntl.h>
 #include "libasm.h"
 
+void	test_strcmp(char *str1, char *str2)
+{
+		printf("Original: %d\n", strcmp(str1, str2));
+		printf("Mine    : %d\n", ft_strcmp(str1, str2));
+}
 
 int		main()
 {
@@ -25,31 +30,12 @@ int		main()
 		printf("Original: %ld %ld %ld\n", strlen("Hello World!"), strlen(""), strlen("Weird Characters \200 	\t\n"));
 		printf("Mine    : %ld %ld %ld\n", ft_strlen("Hello World!"), ft_strlen(""), ft_strlen("Weird Characters \200 	\t\n"));
 
-		char *hi;
-		char *hello;
 		printf("\nstrcmp tests:\n");
-		printf("Original: %d", strcmp("Hello World!", "Hello World!"));
-		printf(" %d", strcmp("Hello World!", "Hello"));
-		printf(" %d", strcmp("Hello", "Hello World!"));
-		hi = strdup("Hello there!");
-		hello = strdup("Hello there!");
-		printf(" %d", strcmp(hi, hello));
-		free(hi);
-		hi = strdup("General Kenobi!");
-		printf(" %d", strcmp(hi, hello));
-		//printf(" %d", strcmp("Hello World!", NULL));		// Segfaults
-		printf("\n");
-
-		printf("Mine    : %d", ft_strcmp("Hello World!", "Hello World!"));
-		printf(" %d", ft_strcmp("Hello World!", "Hello"));
-		printf(" %d", ft_strcmp("Hello", "Hello World!"));
-		hi = strdup("Hello there!");
-		hello = strdup("Hello there!");
-		printf(" %d", ft_strcmp(hi, hello));
-		free(hi);
-		hi = strdup("General Kenobi!");
-		printf(" %d", ft_strcmp(hi, hello));
-		//printf(" %d", ft_strcmp("Hello World!", NULL));		// Segfaults
+		test_strcmp("Hello World!", "Hello World!");
+		test_strcmp("Hello World!", "Hello");
+		test_strcmp("Hello", "Hello World!");
+		test_strcmp("\200", "\40");
+		// test_strcmp("Hello World!", NULL));		// Segfaults
 		printf("\n");
 
 		printf("\nstrcpy tests:\n");
@@ -101,7 +87,7 @@ int		main()
 		printf("%s\n", content);
 		close(fd);
 
-		printf("\nft_atoi_base\n");
+		printf("\nft_atoi_base:\n");
 		printf("base hexa: \"ff\" => %d\n", ft_atoi_base("ff", "0123456789abcdef"));
 		printf("Invalid characters: \"wx\" => %d\n", ft_atoi_base("wx", "0123456789abcdef"));
 		printf("base with doubles (825b94fbalf) => %d\n", ft_atoi_base("bb", "825b94fbalf"));
