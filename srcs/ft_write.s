@@ -1,13 +1,24 @@
 ; inputs : rdi = fd ; rsi = buf ; rdx = nbytes
 
+%macro save 1-*
+	%rep %0
+		push %1
+		%rotate 1
+	%endrep
+%endmacro
+%macro restore 1-*
+	%rep %0
+		%rotate -1
+		pop %1
+	%endrep
+%endmacro
+
 		global	_ft_write
 		extern ___error
 		section	.text
 
 _ft_write:
-		push	rdi
-		push	rsi
-		push	rdx
+		save	rdi, rsi, rdx
 		mov		rax, 0x02000004	; system call for write
 		syscall					; invoke operating system to do the write
 		jc		error
@@ -22,7 +33,5 @@ error:
 		mov		dword [rax], r9d
 		sub		rax, rax
 		dec		rax				; set rax to -1
-		pop		rdi
-		pop		rsi
-		pop		rdx
+		restore	rdi, rsi, rdx
 		ret

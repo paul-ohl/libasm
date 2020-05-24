@@ -1,9 +1,23 @@
 ; inputs : rdi = str
 
+%macro save 1-*
+	%rep %0
+		push %1
+		%rotate 1
+	%endrep
+%endmacro
+%macro restore 1-*
+	%rep %0
+		%rotate -1
+		pop %1
+	%endrep
+%endmacro
+
 		global	_ft_strdup
 		extern	_malloc
 		section	.text
 _ft_strdup:
+		save	rdi, rsi
 		sub		rcx, rcx	; initialize counter to 0
 		not		rcx			; set rcx to -1
 		sub		al, al		; set al to 0
@@ -25,4 +39,5 @@ copy_char:
 		jmp		copy_char
 
 return:
+		restore	rdi, rsi
 		ret

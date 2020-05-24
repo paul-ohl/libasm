@@ -2,7 +2,22 @@
 
 		global	_ft_strcmp
 		section	.text
+
+%macro save 1-*
+	%rep %0
+		push %1
+		%rotate 1
+	%endrep
+%endmacro
+%macro restore 1-*
+	%rep %0
+		%rotate -1
+		pop %1
+	%endrep
+%endmacro
+
 _ft_strcmp:
+		save	rdi, rsi, rdx
 
 count:
 		mov		al, byte [rdi]
@@ -19,4 +34,5 @@ return:
 		movzx	rax, byte [rdi]	; moves byte of rdi in rax and completes with the sign
 		movzx	rdx, byte [rsi]
 		sub		rax, rdx
+		restore	rdi, rsi, rdx
 		ret

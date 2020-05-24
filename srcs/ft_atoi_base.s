@@ -1,19 +1,33 @@
 ; inputs : rdi = str ; rsi = base
 
+%macro save 1-*
+	%rep %0
+		push %1
+		%rotate 1
+	%endrep
+%endmacro
+%macro restore 1-*
+	%rep %0
+		%rotate -1
+		pop %1
+	%endrep
+%endmacro
+
 	global	_ft_atoi_base
 	section	.text
 _ft_atoi_base:
+	save	rdi, rsi
 	cmp		rsi, 0
 	jle		error					; return 0 if base <= 0
 	sub		r8, r8					; set r8 to 0
 	mov		r9, r8
 	inc		r9						; set r9 to 1
-	mov		r12b, byte [rsi + r8]	; save character for comparison
-	cmp		r12b, 0
+	mov		r10b, byte [rsi + r8]	; save character for comparison
+	cmp		r10b, 0
 	je		error
 
 check_base_doubles:
-	cmp		byte [rsi + r9], r12b
+	cmp		byte [rsi + r9], r10b
 	je		error
 	cmp		byte [rsi + r9], 0
 	je		base_len
@@ -21,15 +35,15 @@ check_base_doubles:
 	jmp		check_base_doubles
 
 base_len:
-	cmp		r12b, ' '
+	cmp		r10b, ' '
 	je		error
-	cmp		r12b, '-'
+	cmp		r10b, '-'
 	je		error
-	cmp		r12b, '+'
+	cmp		r10b, '+'
 	je		error					; return 0 if base contains space, '-' or '+'
 	inc		r8
-	mov		r12b, byte [rsi + r8]	; save character for comparison
-	cmp		r12b, 0
+	mov		r10b, byte [rsi + r8]	; save character for comparison
+	cmp		r10b, 0
 	je		check_base_len
 	mov		r9, r8
 	inc		r9						; set r9 to r8 + 1
@@ -77,9 +91,11 @@ error:								; return 0 when called
 	sub		rax, rax
 
 return:								; return rax
+	restore	rdi, rsi
 	ret
 
 debug_error:						; TO DELETE
 	sub		rax, rax
 	dec		rax
+	restore	rdi, rsi
 	ret
