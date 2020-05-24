@@ -20,8 +20,8 @@
 
 void	test_strcmp(char *str1, char *str2)
 {
-		printf("Original: %d\n", strcmp(str1, str2));
-		printf("Mine    : %d\n", ft_strcmp(str1, str2));
+		printf("Original: %i\n", strcmp(str1, str2));
+		printf("Mine    : %i\n", ft_strcmp(str1, str2));
 }
 
 int		main()
@@ -34,7 +34,9 @@ int		main()
 		test_strcmp("Hello World!", "Hello World!");
 		test_strcmp("Hello World!", "Hello");
 		test_strcmp("Hello", "Hello World!");
-		test_strcmp("\200", "\40");
+		test_strcmp("\150", "\40");
+		test_strcmp("\xff\xff", "\xff");
+		printf("Original: %i\n", strcmp("\xff\xff", "\xff"));
 		// test_strcmp("Hello World!", NULL));		// Segfaults
 		printf("\n");
 

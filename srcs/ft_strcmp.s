@@ -16,7 +16,7 @@ count:
 		jmp		count			; loop
 
 return:
-		movsx	rax, byte [rdi]	; moves byte of rdi in rax and completes with the sign
-		movsx	rdx, byte [rsi]
+		movzx	rax, byte [rdi]	; moves byte of rdi in rax and completes with the sign
+		movzx	rdx, byte [rsi]
 		sub		rax, rdx
 		ret

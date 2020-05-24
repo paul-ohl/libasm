@@ -24,7 +24,6 @@ CFLAGS		= -Wall -Wextra -g3
 OBJS	= $(SRCS:%.s=$(OBJSDIR)/%.o)
 
 all: $(NAME)
-	@./configure
 
 $(NAME): $(OBJS)
 	@$(LINKER) $(LDFLAGS) $@ $^
