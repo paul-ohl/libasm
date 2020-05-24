@@ -5,8 +5,9 @@ SRCSDIR		= srcs
 OBJSDIR		= objs
 TESTER		= useless.c
 TESTFILE	= test
-SRCS		= ft_atoi_base.s ft_read.s ft_strcmp.s ft_strcpy.s \
+SRCS		= ft_read.s ft_strcmp.s ft_strcpy.s \
 				ft_strdup.s ft_strlen.s ft_write.s
+SRCS_BONUS	= ft_atoi_base.s
 
 # Compiler options
 ASMC		= nasm
@@ -21,15 +22,20 @@ CFLAGS		= -Wall -Wextra -g3
 # you should not have to modify it				  #
 ###################################################
 
-OBJS	= $(SRCS:%.s=$(OBJSDIR)/%.o)
+OBJS		= $(SRCS:%.s=$(OBJSDIR)/%.o)
+OBJS_BONUS	= $(SRCS_BONUS:%.s=$(OBJSDIR)/%.o)
 
 all: $(NAME)
+
+bonus: $(OBJS) $(OBJS_BONUS)
+	@$(LINKER) $(LDFLAGS) $(NAME) $^
+	@echo "Build successful!"
 
 $(NAME): $(OBJS)
 	@$(LINKER) $(LDFLAGS) $@ $^
 	@echo "Build successful!"
 
-$(OBJS): $(OBJSDIR)/%.o: $(SRCSDIR)/%.s
+$(OBJSDIR)/%.o: $(SRCSDIR)/%.s
 	@mkdir -p $(@D)
 	@echo Compiling $<
 	@$(ASMC) $(ASMFLAGS) -o $@ $<
@@ -49,4 +55,4 @@ test: $(NAME)
 	@echo "Running tests:"
 	@./$(TESTFILE)
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test bonus
