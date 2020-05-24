@@ -6,7 +6,7 @@
 /*   By: paulohl <paulohl@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/24 15:44:20 by paulohl           #+#    #+#             */
-/*   Updated: 2020/05/02 14:45:20 by paulohl          ###   ########.fr       */
+/*   Updated: 2020/05/24 11:19:29 by paulohl          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,10 @@ int		main()
 
 		printf("\nft_atoi_base:\n");
 		printf("base hexa: \"ff\" => %d\n", ft_atoi_base("ff", "0123456789abcdef"));
+		printf("base hexa: \" \\t\\nff\" => %d\n", ft_atoi_base(" \t\nff", "0123456789abcdef"));
+		printf("base hexa: \"-ff\" => %d\n", ft_atoi_base("-ff", "0123456789abcdef"));
+		printf("base hexa: \"-+-ff\" => %d\n", ft_atoi_base("-+-ff", "0123456789abcdef"));
+		printf("base hexa: \"-+-ff w\" => %d\n", ft_atoi_base("-+-ff w", "0123456789abcdef"));
 		printf("Invalid characters: \"wx\" => %d\n", ft_atoi_base("wx", "0123456789abcdef"));
 		printf("base with doubles (825b94fbalf) => %d\n", ft_atoi_base("bb", "825b94fbalf"));
 }

@@ -49,9 +49,9 @@ fclean: clean
 
 re: fclean all
 
-test: $(NAME)
+test: bonus
 	@echo "Compiling $(TESTER)"
-	@$(CC) $(CFLAGS) -o $(TESTFILE) -I$(INCLUDES) $(TESTER) $<
+	@$(CC) $(CFLAGS) -o $(TESTFILE) -I$(INCLUDES) $(TESTER) $(NAME)
 	@echo "Running tests:"
 	@./$(TESTFILE)
 

@@ -18,11 +18,11 @@
 _ft_atoi_base:
 	save	rdi, rsi
 	cmp		rsi, 0
-	jle		error					; return 0 if base <= 0
+	je		error					; return 0 if base == 0
 	sub		r8, r8					; set r8 to 0
 	mov		r9, r8
 	inc		r9						; set r9 to 1
-	mov		r10b, byte [rsi + r8]	; save character for comparison
+	mov		r10b, byte [rsi]	; save character for comparison
 	cmp		r10b, 0
 	je		error
 
@@ -36,6 +36,16 @@ check_base_doubles:
 
 base_len:
 	cmp		r10b, ' '
+	je		error
+	cmp		r10b, 9
+	je		error
+	cmp		r10b, 10
+	je		error
+	cmp		r10b, 13
+	je		error
+	cmp		r10b, 11
+	je		error
+	cmp		r10b, 12
 	je		error
 	cmp		r10b, '-'
 	je		error
@@ -53,18 +63,39 @@ check_base_len:
 	cmp		r8, 2
 	jl		error					; error if base contains less than 2 characters
 	sub		rax, rax				; set rax to 0
-	mov		r11, rax
-	mov		r9, r8
+	dec		rdi
+	mov		r11, 0
 
-; At this point, r8 and r9 contains the length of the base, and the base is checked
+; At this point, r8 contains the length of the base, and the base is checked
 ; rax is set to 0
 
-multiply_by_base:	; executes r8 * rax, r9 must equal r8 and r11 must equal rax before starting the function
-	dec		r9
-	cmp		r9, 0
-	je		prepare_get_digit
-	add		rax, r11
-	jmp		multiply_by_base
+skip_whitespace:
+	inc		rdi
+	cmp		byte [rdi], ' '
+	je		skip_whitespace
+	cmp		byte [rdi], 9
+	je		skip_whitespace
+	cmp		byte [rdi], 10
+	je		skip_whitespace
+	cmp		byte [rdi], 13
+	je		skip_whitespace
+	cmp		byte [rdi], 11
+	je		skip_whitespace
+	cmp		byte [rdi], 12
+	je		skip_whitespace
+	dec		rdi
+
+sign_handling:
+	inc		rdi
+	cmp		byte[rdi], '+'
+	je		sign_handling
+	cmp		byte[rdi], '-'
+	jne		no_xor
+	xor		r11, 1
+
+no_xor:
+	cmp		byte[rdi], '-'
+	je		sign_handling
 
 prepare_get_digit:
 	sub		r9, r9				; set r9 to 0
@@ -75,27 +106,25 @@ get_digit_base10:
 	je		convert_base		; if characters are the same, r9 is the digit in base 10
 	inc		r9
 	cmp		byte [rsi + r9], 0
-	je		error
+	je		return
 	jmp		get_digit_base10
 
 convert_base:
+	imul	r8					; multiplies rax by r8 (base length) and puts the output in rax
 	add		rax, r9				; adds the selected digit in base 10 to rax
 	inc		rdi
 	cmp		byte [rdi], 0
 	je		return				; exits the program if reached end of str
 	mov		r9, r8				; resets r9 to r8 for multiplication
-	mov		r11, rax			; resets r11 to rax for multiplication
-	jmp		multiply_by_base
+	jmp		prepare_get_digit
 
 error:								; return 0 when called
 	sub		rax, rax
 
 return:								; return rax
-	restore	rdi, rsi
-	ret
-
-debug_error:						; TO DELETE
-	sub		rax, rax
-	dec		rax
+	cmp		r11, 0
+	je		return_pos
+	neg		rax
+return_pos:
 	restore	rdi, rsi
 	ret
