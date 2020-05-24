@@ -26,21 +26,20 @@ void	test_strcmp(char *str1, char *str2)
 
 int		main()
 {
-		printf("strlen tests:\n");
+		printf("\033[0;36mstrlen tests:\033[0m\n");
 		printf("Original: %ld %ld %ld\n", strlen("Hello World!"), strlen(""), strlen("Weird Characters \200 	\t\n"));
 		printf("Mine    : %ld %ld %ld\n", ft_strlen("Hello World!"), ft_strlen(""), ft_strlen("Weird Characters \200 	\t\n"));
 
-		printf("\nstrcmp tests:\n");
+		printf("\n\033[0;36mstrcmp tests:\033[0m\n");
 		test_strcmp("Hello World!", "Hello World!");
 		test_strcmp("Hello World!", "Hello");
 		test_strcmp("Hello", "Hello World!");
 		test_strcmp("\150", "\40");
 		test_strcmp("\xff\xff", "\xff");
-		printf("Original: %i\n", strcmp("\xff\xff", "\xff"));
 		// test_strcmp("Hello World!", NULL));		// Segfaults
 		printf("\n");
 
-		printf("\nstrcpy tests:\n");
+		printf("\n\033[0;36mstrcpy tests:\033[0m\n");
 		char good[20];
 		printf("Original: %s", strcpy(good, "Hello World!"));
 		//char too_short[2];
@@ -57,13 +56,13 @@ int		main()
 		//printf(" %s", ft_strcpy(ft_empty, NULL));		// Segfaults
 		printf("\n");
 
-		printf("\nstrdup:\n");
+		printf("\n\033[0;36mstrdup:\033[0m\n");
 		printf("Original: %s\n", strdup("Hello World!"));
 		printf("Mine    : %s\n", ft_strdup("Hello World!"));
 		printf("Original: %s\n", strdup(""));
 		printf("Mine    : %s\n", ft_strdup(""));
 
-		printf("\nwrite:\n");
+		printf("\n\033[0;36mwrite:\033[0m\n");
 		errno = 0;
 		printf(" => Original, stdout: %zd ; errno: %d\n", write(1, "bonjour", 7), errno);
 		errno = 0;
@@ -79,7 +78,7 @@ int		main()
 		printf("Mine    , error: %zd ; errno: %d\n", ft_write(-1, "bonjour", 7), errno);
 		close(fd);
 
-		puts("\nread:");
+		puts("\n\033[0;36mread:\033[0m");
 		char content[8];
 		content[7] = 0;
 		fd = open("test.txt", O_RDONLY);
@@ -89,7 +88,7 @@ int		main()
 		printf("%s\n", content);
 		close(fd);
 
-		printf("\nft_atoi_base:\n");
+		printf("\n\033[0;36mft_atoi_base:\033[0m\n");
 		printf("base hexa: \"ff\" => %d\n", ft_atoi_base("ff", "0123456789abcdef"));
 		printf("base hexa: \" \\t\\nff\" => %d\n", ft_atoi_base(" \t\nff", "0123456789abcdef"));
 		printf("base hexa: \"-ff\" => %d\n", ft_atoi_base("-ff", "0123456789abcdef"));
