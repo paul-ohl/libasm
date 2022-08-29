@@ -1,19 +1,15 @@
 #!/bin/sh
 
-if which nasm ; then
+if [[ "$(command -v nasm)" ]]; then
 		echo "nasm is installed"
-elif which brew ; then
+elif [[ "$(command -v brew)" ]]; then
 		printf "brew is installed, do you want to install nasm? (y/n) "
-		read -r install_nasm
+		read -r -d '' -sn1 install_nasm 
+		echo
 		if [ "$install_nasm" = "y" ]; then
 				brew install nasm
 		fi
 else
-		printf "brew is not installed, do you want to install brew and nasm? (y/n) "
-		read -r install_all
-		if [ "$install_all" = "y" ]; then
-				rm -rf "$HOME/.brew" && git clone --depth=1 https://github.com/Homebrew/brew "$HOME/.brew" && export PATH="$HOME/.brew/bin:$PATH" && brew update && echo "export PATH=$HOME/.brew/bin:$PATH" >> ~/.zshrc
-				brew install nasm
-		fi
+		printf "brew and nasm are not installed, install nasm by your own means"
 fi
 
